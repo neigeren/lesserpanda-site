@@ -272,25 +272,39 @@
     .footLinks a{color:var(--muted); padding:6px 8px; border-radius: 12px}
     .footLinks a:hover{color:var(--text); background: rgba(255,255,255,.06)}
     .small{font-size:12px; color: var(--muted2)}
-  
+
     .iconbtn{
       display:none;
-      width:44px; height:44px;
+      align-items:center;
+      gap:10px;
+      width:auto;
+      height:44px;
+      padding: 10px 12px;
       border-radius:14px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.08);
+      color: var(--text);
       box-shadow: 0 8px 20px rgba(0,0,0,.20);
-      padding: 12px 11px;
       cursor:pointer;
+      font-weight: 750;
     }
-    .iconbtn span{
+    .iconbtn:active{transform: translateY(1px);}
+    .iconbtn .label{font-size:14px; letter-spacing:.2px;}
+    .hamburger{
+      display:inline-flex;
+      flex-direction:column;
+      justify-content:center;
+      width:18px;
+      height:18px;
+    }
+    .hamburger i{
       display:block;
       height:2px;
-      background: rgba(255,255,255,.85);
-      border-radius: 99px;
-      margin: 5px 0;
-      transition: transform .18s ease, opacity .18s ease;
+      background: rgba(255,255,255,.88);
+      border-radius: 999px;
+      margin: 2.5px 0;
     }
+
     .overlay{
       display:none;
       position:fixed;
@@ -322,9 +336,31 @@
         background: rgba(255,255,255,.04);
       }
       .navlinks a:hover{background: rgba(255,255,255,.08)}
+
+    .menugroup{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      padding: 10px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      border-radius: 16px;
+    }
+    .menuhead{
+      font-size:12px;
+      color: rgba(255,255,255,.55);
+      letter-spacing: .3px;
+      padding: 2px 6px 0;
+      font-weight: 800;
+      text-transform: none;
+    }
+
       .navlinks.open{display:flex;}
       .overlay.open{display:block;}
     }
+
+  
+    body.nav-open{overflow:hidden;}
 
   </style>
 </head>
@@ -340,15 +376,22 @@
       </div>
 
       <div class="navlinks" aria-label="サイト内メニュー">
-        <a href="#services">事業内容</a>
-        <a href="#about">会社概要</a>
-        <a href="#contact">お問い合わせ</a>
-        <a href="privacy.html">プライバシーポリシー</a>
-        <a href="tokusho.html">特商法表記</a>
+        
+        <div class="menugroup">
+          <div class="menuhead">会社情報</div>
+          <a href="#services">事業内容</a>
+          <a href="#about">会社概要</a>
+        </div>
+        <div class="menugroup">
+          <div class="menuhead">法務</div>
+          <a href="privacy.html">プライバシーポリシー</a>
+          <a href="tokusho.html">特商法表記</a>
+        </div>
+    
       </div>
 
       <div class="navcta">
-        <button class="iconbtn" id="navToggle" type="button" aria-label="メニューを開く" aria-expanded="false"><span></span><span></span><span></span></button>
+        <button class="iconbtn" id="navToggle" type="button" aria-label="メニュー" aria-expanded="false"><span class="hamburger" aria-hidden="true"><i></i><i></i><i></i></span><span class="label">メニュー</span></button>
         <a class="btn primary" href="#contact"><span class="dot"></span>お問い合わせ</a>
       </div>
     </div>
@@ -562,8 +605,7 @@
           <a href="#top">トップ</a>
           <a href="#services">事業内容</a>
           <a href="#about">会社概要</a>
-          <a href="#contact">お問い合わせ</a>
-          <a href="privacy.html">プライバシーポリシー</a>
+                    <a href="privacy.html">プライバシーポリシー</a>
           <a href="tokusho.html">特商法表記</a>
         </div>
         <div class="small" style="margin-top:10px;">
@@ -587,10 +629,20 @@
       function closeMenu(){
         menu.classList.remove('open');
         overlay.classList.remove('open');
+        document.body.classList.remove('nav-open');
+        // iOS: restore scroll
+        const y = document.body.getAttribute('data-scroll-y');
+        if(y){
+          window.scrollTo(0, parseInt(y,10));
+          document.body.removeAttribute('data-scroll-y');
+        }
         btn.setAttribute('aria-expanded','false');
         overlay.setAttribute('aria-hidden','true');
       }
       function openMenu(){
+        // iOS: save scroll and lock
+        document.body.setAttribute('data-scroll-y', String(window.scrollY || 0));
+        document.body.classList.add('nav-open');
         menu.classList.add('open');
         overlay.classList.add('open');
         btn.setAttribute('aria-expanded','true');
@@ -601,6 +653,7 @@
         isOpen ? closeMenu() : openMenu();
       });
       overlay.addEventListener('click', closeMenu);
+      overlay.addEventListener('touchmove', (e)=>e.preventDefault(), {passive:false});
 
       menu.querySelectorAll('a[href^="#"]').forEach(a=>{
         a.addEventListener('click', (e)=>{
