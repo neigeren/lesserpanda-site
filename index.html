@@ -1,686 +1,179 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>レッサーパンダ株式会社｜商品貿易・EC小売／投資相談・コンサルティング</title>
-  <meta name="description" content="レッサーパンダ株式会社（大阪市天王寺区）。商品貿易・EC小売事業を中心に、投資に関する相談・コンサルティングを提供します。" />
-  <meta name="theme-color" content="#0b1020" />
-  <style>
-    :root{
-      --bg: #070a12;
-      --surface: rgba(255,255,255,.06);
-      --surface2: rgba(255,255,255,.09);
-      --line: rgba(255,255,255,.10);
-      --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.66);
-      --muted2: rgba(255,255,255,.52);
-      --accent: #7dd3fc;
-      --accent2:#a78bfa;
-      --ok:#34d399;
-      --warn:#fbbf24;
-      --max: 1120px;
-      --shadow: 0 12px 35px rgba(0,0,0,.35);
-      --radius: 20px;
-      --radius2: 16px;
-    }
-
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(1200px 800px at 15% 10%, rgba(125,211,252,.16), transparent 55%),
-        radial-gradient(1000px 700px at 85% 18%, rgba(167,139,250,.14), transparent 55%),
-        radial-gradient(900px 650px at 55% 95%, rgba(52,211,153,.08), transparent 55%),
-        var(--bg);
-      line-height:1.75;
-      letter-spacing: .2px;
-    }
-
-    a{color:inherit; text-decoration:none}
-    .wrap{max-width:var(--max); margin:0 auto; padding:0 20px}
-
-    /* Header */
-    header{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(10px);
-      background: rgba(7,10,18,.65);
-      border-bottom: 1px solid var(--line);
-    }
-    .nav{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:16px; padding:14px 0;
-    }
-    .brand{
-      display:flex; align-items:center; gap:12px;
-      min-width: 240px;
-    }
-    .logo{
-      width:36px; height:36px; border-radius:12px;
-      background:
-        radial-gradient(circle at 30% 25%, rgba(125,211,252,.9), rgba(125,211,252,.25) 55%, transparent 56%),
-        radial-gradient(circle at 70% 75%, rgba(167,139,250,.9), rgba(167,139,250,.25) 55%, transparent 56%),
-        rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.10);
-      box-shadow: 0 10px 25px rgba(0,0,0,.25);
-    }
-    .brand .name{font-weight:800; letter-spacing:.4px}
-    .brand .tag{font-size:12px; color:var(--muted2); margin-top:2px}
-    .brandtext{display:flex; flex-direction:column; line-height:1.2}
-
-    .navlinks{display:flex; gap:14px; flex-wrap:wrap; align-items:center; justify-content:flex-end}
-    .navlinks a{
-      color:var(--muted);
-      padding:8px 10px;
-      border-radius:12px;
-    }
-    .navlinks a:hover{
-      color:var(--text);
-      background: rgba(255,255,255,.06);
-    }
-    .navcta{
-      display:flex; gap:10px; align-items:center;
-    }
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding:10px 14px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      box-shadow: 0 8px 20px rgba(0,0,0,.20);
-      transition: transform .15s ease, background .15s ease, border-color .15s ease;
-      user-select:none;
-      font-weight: 650;
-      gap:10px;
-      white-space:nowrap;
-    }
-    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.16);}
-    .btn.primary{
-      border-color: rgba(125,211,252,.28);
-      background: linear-gradient(135deg, rgba(125,211,252,.22), rgba(167,139,250,.16));
-    }
-    .btn .dot{
-      width:8px; height:8px; border-radius:999px; background: var(--accent);
-      box-shadow: 0 0 0 4px rgba(125,211,252,.12);
-    }
-
-    /* Hero */
-    .hero{
-      padding: 64px 0 22px;
-    }
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1.35fr .65fr;
-      gap: 18px;
-      align-items:stretch;
-    }
-    @media (max-width: 980px){
-      .heroGrid{grid-template-columns:1fr; }
-      .brand{min-width: unset}
-      .nav{align-items:flex-start}
-    }
-
-    .hCard{
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-      position:relative;
-    }
-    .hCard::before{
-      content:"";
-      position:absolute; inset:-1px;
-      background: radial-gradient(800px 400px at 20% 0%, rgba(125,211,252,.18), transparent 60%),
-                  radial-gradient(700px 380px at 80% 20%, rgba(167,139,250,.16), transparent 60%);
-      pointer-events:none;
-      opacity: .9;
-    }
-    .hInner{position:relative; padding:26px}
-    .kicker{
-      display:inline-flex; align-items:center; gap:10px;
-      font-size:12px; color:var(--muted);
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      padding:6px 10px;
-      border-radius:999px;
-    }
-    .kicker .pill{
-      font-size:11px; color:rgba(0,0,0,.85);
-      background: linear-gradient(135deg, rgba(125,211,252,.95), rgba(167,139,250,.90));
-      padding:2px 8px; border-radius:999px;
-      font-weight:800;
-    }
-    h1{
-      margin: 14px 0 10px;
-      font-size: 44px;
-      line-height: 1.12;
-      letter-spacing: .2px;
-    }
-    @media (max-width: 680px){
-      h1{font-size: 34px;}
-    }
-    .lead{
-      margin: 0;
-      color: var(--muted);
-      max-width: 60ch;
-    }
-    .heroCta{
-      display:flex; gap:12px; flex-wrap:wrap;
-      margin-top:18px;
-    }
-
-    .mini{
-      display:grid;
-      gap: 12px;
-    }
-    .miniCard{
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      border-radius: var(--radius2);
-      padding: 16px;
-      box-shadow: 0 10px 24px rgba(0,0,0,.22);
-    }
-    .miniTitle{font-weight:800; margin:0 0 6px; font-size:14px}
-    .miniText{margin:0; color:var(--muted); font-size:13px}
-    .miniRow{
-      display:flex; gap:10px; align-items:flex-start;
-    }
-    .ic{
-      width:34px; height:34px; border-radius:12px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
-      display:flex; align-items:center; justify-content:center;
-      flex: 0 0 auto;
-    }
-    .ic svg{width:18px; height:18px; opacity:.9}
-
-    /* Sections */
-    section{padding: 18px 0}
-    .sectionTitle{
-      display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap;
-      margin: 14px 0 10px;
-    }
-    .sectionTitle h2{margin:0; font-size:22px}
-    .sectionTitle p{margin:0; color:var(--muted); font-size:13px; max-width: 70ch}
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 16px;
-    }
-    .card{
-      grid-column: span 12;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      border-radius: var(--radius);
-      padding: 18px;
-      box-shadow: 0 10px 26px rgba(0,0,0,.22);
-    }
-    @media (min-width: 920px){
-      .col6{grid-column: span 6;}
-      .col4{grid-column: span 4;}
-      .col8{grid-column: span 8;}
-    }
-    .card h3{margin:0 0 8px; font-size:16px}
-    .muted{color:var(--muted)}
-    .list{margin:10px 0 0 18px; color:var(--muted)}
-    .chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px}
-    .chip{
-      font-size:12px; color:var(--muted);
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      padding:6px 10px;
-      border-radius: 999px;
-    }
-    .note{
-      margin-top:12px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.04);
-      border-radius: 16px;
-      padding: 12px 12px;
-      color: var(--muted);
-      font-size: 12.5px;
-    }
-    .kvs{display:grid; grid-template-columns: 160px 1fr; gap:10px; margin-top:10px}
-    .kvs div{padding:9px 0; border-bottom:1px solid rgba(255,255,255,.08)}
-    .kvs div:nth-child(odd){color:var(--muted2)}
-    @media (max-width: 520px){
-      .kvs{grid-template-columns: 1fr}
-      .kvs div{border-bottom:none; padding:6px 0}
-    }
-
-    /* Footer */
-    footer{
-      margin-top: 24px;
-      border-top: 1px solid var(--line);
-      background: rgba(255,255,255,.02);
-      padding: 20px 0 40px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-    .footGrid{
-      display:grid; gap: 12px;
-      grid-template-columns: 1.2fr .8fr;
-      align-items:start;
-    }
-    @media (max-width: 860px){ .footGrid{grid-template-columns:1fr;} }
-    .footLinks{display:flex; gap: 12px; flex-wrap:wrap}
-    .footLinks a{color:var(--muted); padding:6px 8px; border-radius: 12px}
-    .footLinks a:hover{color:var(--text); background: rgba(255,255,255,.06)}
-    .small{font-size:12px; color: var(--muted2)}
-
-    :root{ --headerH: 72px; }
-    header{ height: var(--headerH); }
-    .nav{height: var(--headerH); padding: 14px 16px; flex-wrap:nowrap;}
-    .brand{display:flex; align-items:center; gap:12px; min-width:0;}
-    .brand .t1{font-size:15px; line-height:1.15; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-    .brand .t2{font-size:12px; line-height:1.2; color:rgba(255,255,255,.55); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-    .navcta{display:flex; align-items:center; gap:10px; flex-wrap:nowrap;}
-    .iconbtn{
-      display:none;
-      width:44px; height:44px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(255,255,255,.08);
-      color: rgba(255,255,255,.92);
-      box-shadow: 0 8px 20px rgba(0,0,0,.20);
-      cursor:pointer;
-      flex: 0 0 auto;
-      padding: 0;
-      align-items:center;
-      justify-content:center;
-    }
-    .iconbtn:active{transform: translateY(1px);}
-    .hamburger{
-      display:inline-flex;
-      flex-direction:column;
-      justify-content:center;
-      width:18px;
-      height:18px;
-    }
-    .hamburger i{
-      display:block;
-      height:2px;
-      background: rgba(255,255,255,.88);
-      border-radius: 999px;
-      margin: 2.5px 0;
-    }
-    body.nav-open{overflow:hidden;}
-
-    .menugroup{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      padding: 10px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      border-radius: 16px;
-    }
-    .menuhead{
-      font-size:12px;
-      color: rgba(255,255,255,.55);
-      letter-spacing: .3px;
-      padding: 2px 6px 0;
-      font-weight: 800;
-    }
-
-    .overlay{
-      display:none;
-      position:fixed;
-      inset: var(--headerH) 0 0 0;
-      background: rgba(0,0,0,.45);
-      backdrop-filter: blur(2px);
-    }
-    @media (max-width: 980px){
-      .iconbtn{display:inline-flex;}
-      .nav{align-items:center}
-      .navlinks{
-        position: fixed;
-        top: var(--headerH);
-        right: 12px;
-        left: 12px;
-        display:none;
-        flex-direction:column;
-        gap: 10px;
-        padding: 14px;
-        border: 1px solid rgba(255,255,255,.14);
-        background: rgba(7,10,18,.92);
-        border-radius: 18px;
-        box-shadow: 0 18px 40px rgba(0,0,0,.45);
-      }
-      .navlinks a{
-        display:block;
-        padding: 12px 12px;
-        border-radius: 14px;
-        background: rgba(255,255,255,.04);
-      }
-      .navlinks a:hover{background: rgba(255,255,255,.08)}
-.navlinks.open{display:flex;}
-      .overlay.open{display:block;}
-    }
-
-    @media (max-width: 420px){
-      :root{ --headerH: 70px; }
-      .navcta .btn.primary{ padding: 10px 12px; font-size: 13px; }
-      .nav{ padding: 12px 12px; }
-    }
-
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>レッサーパンダ株式会社 | EC・事業開発・情報コンテンツ</title>
+  <meta name="description" content="レッサーパンダ株式会社は、大阪を拠点にEC事業、室内植物照明・栽培環境用品の販売、事業開発、AI活用、創業・経営・投資に関する情報コンテンツ事業を展開しています。">
+  <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
-  <header>
-    <div class="wrap nav">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div class="brandtext">
-          <div class="name">レッサーパンダ株式会社</div>
-          <div class="tag">Trading & E-commerce / Investment Advisory Support</div>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="レッサーパンダ株式会社 トップ">
+      <span class="brand-mark">L</span>
+      <span>
+        <strong>レッサーパンダ株式会社</strong>
+        <small>Lesser Panda Co., Ltd.</small>
+      </span>
+    </a>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span></span><span></span><span></span>
+      <span class="sr-only">メニュー</span>
+    </button>
+    <nav id="site-nav" class="site-nav">
+      <a href="#business">事業内容</a>
+      <a href="#strategy">今後の方針</a>
+      <a href="representative.html">代表者紹介</a>
+      <a href="#company">会社概要</a>
+      <a class="nav-cta" href="#contact">お問い合わせ</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">Osaka based EC and business development company</p>
+          <h1>日本での実務に根ざし、EC事業を中心に、次の成長へ。</h1>
+          <p class="lead">レッサーパンダ株式会社は、2017年の設立以来、日本国内で事業活動を継続してきました。現在は電子商取引を主たる事業とし、室内植物照明・栽培環境用品を中心に、商品企画、販売、在庫管理、発送、顧客対応まで一体的に運営しています。</p>
+          <div class="hero-actions">
+            <a class="button primary" href="https://store.shopping.yahoo.co.jp/mottogrow/" target="_blank" rel="noopener">Yahoo!ショッピング店を見る</a>
+            <a class="button secondary" href="#contact">大口取引の相談</a>
+          </div>
         </div>
+        <aside class="hero-card">
+          <p class="card-label">Current Focus</p>
+          <h2>EC運営・在庫管理・AI活用</h2>
+          <p>既存EC事業の安定化に加え、販売分析、需要予測、顧客対応、商品説明、業務手順整理にAIを取り入れ、小規模企業としての生産性向上に取り組みます。</p>
+        </aside>
       </div>
+    </section>
 
-      <div class="navlinks" aria-label="サイト内メニュー">
-        
-        <div class="menugroup">
-          <div class="menuhead">会社情報</div>
-          <a href="#services">事業内容</a>
-          <a href="#about">会社概要</a>
-        </div>
-        <div class="menugroup">
-          <div class="menuhead">法務</div>
-          <a href="privacy.html">プライバシーポリシー</a>
-          <a href="tokusho.html">特商法表記</a>
-        </div>
-    
+    <section id="business" class="section">
+      <div class="section-heading">
+        <p class="eyebrow">Business</p>
+        <h2>主な事業内容</h2>
+        <p>現在の主軸であるEC事業を中心に、既存の経験とデジタル運営能力を活かして事業領域を段階的に広げています。</p>
       </div>
-
-      <div class="navcta">
-        <button class="iconbtn" id="navToggle" type="button" aria-label="メニュー" aria-expanded="false"><span class="hamburger" aria-hidden="true"><i></i><i></i><i></i></span></button>
-        <a class="btn primary" href="#contact"><span class="dot"></span>お問い合わせ</a>
+      <div class="business-grid">
+        <article class="business-card featured">
+          <div class="icon">01</div>
+          <h3>EC事業</h3>
+          <p>室内植物照明、栽培用ライト、換気・環境管理関連用品など、室内で植物を育てるための用品を中心に取り扱っています。商品品質、配送効率、販売後対応を確認しながら、安定した販売体制を整備しています。</p>
+          <a class="text-link" href="https://store.shopping.yahoo.co.jp/mottogrow/" target="_blank" rel="noopener">Yahoo!ショッピング店へ</a>
+        </article>
+        <article class="business-card">
+          <div class="icon">02</div>
+          <h3>大口・法人向け相談</h3>
+          <p>ネットショップ以外の大口注文、継続仕入、事業者向け取引についてもご相談を受け付けています。用途、数量、納期、配送条件を確認し、可能な範囲で柔軟に対応します。</p>
+        </article>
+        <article class="business-card">
+          <div class="icon">03</div>
+          <h3>AIを活用した業務改善</h3>
+          <p>販売データ分析、需要予測、商品ページ改善、問い合わせ対応、社内手順整理などにAIを活用し、限られた人員でも安定して運営できる体制を整えます。</p>
+        </article>
+        <article class="business-card">
+          <div class="icon">04</div>
+          <h3>創業・経営・投資関連情報</h3>
+          <p>代表者自身の創業、事業運営、資金管理、投資経験をもとに、創業準備、会社経営、事業開発、投資の考え方に関する情報提供・教育コンテンツ事業を検討しています。</p>
+        </article>
       </div>
-    </div>
-    <div class="overlay" id="navOverlay" aria-hidden="true"></div>
-</header>
+    </section>
 
-  <main class="wrap">
-    <section class="hero" id="top">
-      <div class="heroGrid">
-        <div class="hCard">
-          <div class="hInner">
-            <div class="kicker"><span class="pill">OSAKA</span> 商品貿易・EC小売／投資相談・コンサルティング</div>
-            <h1>誠実な取引と、<br/>納得感のある意思決定を。</h1>
-            <p class="lead">
-              レッサーパンダ株式会社は、国内外の取引先と連携した<strong>商品貿易・EC小売</strong>を中心に、
-              事業運営の実務に即した提案と運用を行います。併せて、<strong>投資に関する相談・コンサルティング</strong>として、
-              方針整理や情報提供等の支援を提供します。
-            </p>
-            <div class="heroCta">
-              <a class="btn primary" href="#contact"><span class="dot"></span>お問い合わせ</a>
-              <a class="btn" href="#services">事業内容を見る</a>
-            </div>
-            <div class="chips" aria-label="特徴">
-              <span class="chip">透明性重視</span>
-              <span class="chip">実務志向</span>
-              <span class="chip">中長期視点</span>
-              <span class="chip">大阪・天王寺</span>
-            </div>
-          </div>
+    <section class="section history-band">
+      <div class="section-heading compact">
+        <p class="eyebrow">History</p>
+        <h2>事業の歩み</h2>
+      </div>
+      <div class="timeline">
+        <div>
+          <span>2017-2019</span>
+          <h3>京都での創業期</h3>
+          <p>不動産投資と民泊事業に取り組み、法制度や収益見通しの変化を踏まえて事業内容を見直しました。</p>
         </div>
-
-        <div class="mini" aria-label="サイド情報">
-          <div class="miniCard">
-            <div class="miniRow">
-              <div class="ic" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <div>
-                <p class="miniTitle">事業の柱</p>
-                <p class="miniText">貿易・ECの運用力と、投資方針の整理支援を組み合わせ、無理のない成長を志向します。</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="miniCard">
-            <div class="miniRow">
-              <div class="ic" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3 3-7z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <div>
-                <p class="miniTitle">コンプライアンス配慮</p>
-                <p class="miniText">特定商品の売買推奨・勧誘は行わず、一般的な情報提供と整理支援を中心に対応します。</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="miniCard">
-            <div class="miniRow">
-              <div class="ic" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path d="M21 8v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8m18 0a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2m18 0-9 6L3 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </div>
-              <div>
-                <p class="miniTitle">お問い合わせ</p>
-                <p class="miniText">まずは概要だけでも結構です。1〜3営業日以内を目安にご返信いたします。</p>
-              </div>
-            </div>
-          </div>
+        <div>
+          <span>2020</span>
+          <h3>大阪へ移転</h3>
+          <p>大阪に事業拠点を移し、インターネットカフェ事業を開始。来店型事業の運営経験を蓄積しました。</p>
+        </div>
+        <div>
+          <span>2020-2023</span>
+          <h3>EC事業の発展</h3>
+          <p>インターネットカフェ事業と並行してEC事業を開始し、2021年から2023年にかけて会社収益に貢献しました。</p>
+        </div>
+        <div>
+          <span>現在</span>
+          <h3>ECを主たる事業へ</h3>
+          <p>旧店舗スペースを倉庫兼事務所として活用し、EC運営、在庫管理、発送体制の強化を進めています。</p>
         </div>
       </div>
     </section>
 
-    <section id="services">
-      <div class="sectionTitle">
-        <h2>事業内容</h2>
-        <p>過度な表現を避け、できること／できないことを明確にしたうえで、実務に即した支援を行います。</p>
+    <section id="strategy" class="section split">
+      <div>
+        <p class="eyebrow">Strategy</p>
+        <h2>2026年度以降の重点方針</h2>
+        <p>近年の事業環境の変化を踏まえ、短期的な拡大よりも、継続性、収益性、業務品質、資金管理を重視した経営へ進みます。</p>
       </div>
-
-      <div class="grid">
-        <div class="card col6">
-          <h3>1．商品貿易・EC小売事業</h3>
-          <p class="muted">
-            国内外の取引先と連携し、商品の調達、輸入・販売、EC運営を行っております。
-            品質管理とアフターサポート方針の整備により、安心してご利用いただける運用を目指します。
-          </p>
-          <ul class="list">
-            <li>商品リサーチ・仕入れ（国内外）</li>
-            <li>EC運営（商品ページ制作・販促・受注対応）</li>
-            <li>輸出入に関する各種調整・手続き支援</li>
-          </ul>
-        </div>
-
-        <div class="card col6">
-          <h3>2．投資相談・コンサルティング事業</h3>
-          <p class="muted">
-            お客様の状況や目的を踏まえ、投資に関する考え方、方針整理、リスク整理のサポートを行います。
-            特定の金融商品の売買を推奨・勧誘するものではなく、一般的な情報提供および助言を目的としたコンサルティングです。
-          </p>
-          <ul class="list">
-            <li>資産状況・目的・前提条件の整理</li>
-            <li>運用ルール（判断基準・リスク管理）の設計支援</li>
-            <li>中長期視点での定期的なレビュー支援</li>
-          </ul>
-          <div class="note">
-            ※当社は金融商品取引業者ではなく、金融商品の売買・仲介・勧誘は行っておりません。<br/>
-            ※ご相談内容によっては、法令・規制等を踏まえお受けできない場合があります。
-          </div>
-        </div>
-
-        <div class="card col4">
-          <h3>強み</h3>
-          <p class="muted">現場の運用を前提に、判断に必要な情報をコンパクトに整理します。</p>
-          <div class="chips">
-            <span class="chip">情報整理</span>
-            <span class="chip">比較・検討</span>
-            <span class="chip">運用設計</span>
-          </div>
-        </div>
-
-        <div class="card col4">
-          <h3>対応例</h3>
-          <p class="muted">「まず何から整えるべきか」など、ざっくりしたご相談から対応可能です。</p>
-          <div class="chips">
-            <span class="chip">EC運用</span>
-            <span class="chip">調達</span>
-            <span class="chip">方針設計</span>
-          </div>
-        </div>
-
-        <div class="card col4">
-          <h3>スタンス</h3>
-          <p class="muted">短期的な成果だけでなく、中長期のリスクと持続性を重視します。</p>
-          <div class="chips">
-            <span class="chip">透明性</span>
-            <span class="chip">誠実</span>
-            <span class="chip">継続性</span>
-          </div>
-        </div>
+      <div class="strategy-list">
+        <div><strong>EC事業の安定化</strong><span>商品構成、利益率、在庫回転、販売ページを見直し、安定した販売基盤を整えます。</span></div>
+        <div><strong>AIの深い活用</strong><span>販売分析、需要予測、顧客対応、商品説明、情報コンテンツ制作にAIを取り入れます。</span></div>
+        <div><strong>人材採用と育成</strong><span>AIを業務改善に活かせる人材を重視し、将来的な正社員登用も視野に入れます。</span></div>
+        <div><strong>資金管理と投資</strong><span>本業運転資金を確保したうえで、余剰自己資金の一部を有価証券の保有・運用等にも慎重に活用します。</span></div>
       </div>
     </section>
 
-    <section id="about">
-      <div class="sectionTitle">
+    <section class="section representative-preview">
+      <div class="rep-photo">
+        <img src="assets/representative-avatar.jpg" alt="代表取締役 賈思超">
+      </div>
+      <div>
+        <p class="eyebrow">Representative</p>
+        <h2>代表取締役 賈思超</h2>
+        <p>北京理工大学卒業後、中国海関で約9年間勤務。2017年に来日し、レッサーパンダ株式会社を設立。不動産投資、民泊、インターネットカフェ、EC事業を通じて、日本国内での事業運営経験を積み重ねてきました。</p>
+        <a class="button secondary" href="representative.html">代表者紹介を見る</a>
+      </div>
+    </section>
+
+    <section id="company" class="section company-section">
+      <div class="section-heading compact">
+        <p class="eyebrow">Company</p>
         <h2>会社概要</h2>
-        <p>基本情報は以下のとおりです。必要に応じて追記・更新いたします。</p>
       </div>
-
-      <div class="grid">
-        <div class="card col8">
-          <div class="kvs" role="list">
-            <div role="listitem">商号</div><div>レッサーパンダ株式会社</div>
-            <div role="listitem">所在地</div><div>大阪市天王寺区上汐3丁目1-19　上六ウエストビル2F</div>
-            <div role="listitem">代表者</div><div>代表取締役　賈 思超</div>
-            <div role="listitem">事業内容</div><div>商品貿易・EC小売事業／投資相談・コンサルティング事業</div>
-          </div>
-          <div class="note">
-            ※本サイトに掲載する情報は、予告なく変更する場合があります。
-          </div>
-        </div>
-
-        <div class="card col4">
-          <h3>関連ページ</h3>
-          <p class="muted">運用開始時に必須となるページもあらかじめ用意しています。</p>
-          <div class="chips">
-            <a class="chip" href="privacy.html">プライバシーポリシー</a>
-            <a class="chip" href="tokusho.html">特定商取引法表記</a>
-          </div>
-          <div class="note">
-            ※メールアドレスは <strong>devilchaos1984@yahoo.co.jp</strong> を実際のアドレスへ置き換えてください。
-          </div>
-        </div>
-      </div>
+      <dl class="company-list">
+        <div><dt>商号</dt><dd>レッサーパンダ株式会社</dd></div>
+        <div><dt>所在地</dt><dd>大阪市天王寺区上汐三丁目1-19 上六ウエストビル2F</dd></div>
+        <div><dt>代表取締役</dt><dd>賈思超</dd></div>
+        <div><dt>設立</dt><dd>2017年</dd></div>
+        <div><dt>主な事業</dt><dd>電子商取引、商品企画・輸入・販売、在庫管理、発送、事業開発、情報コンテンツ事業の検討</dd></div>
+      </dl>
     </section>
 
-    <section id="contact">
-      <div class="sectionTitle">
+    <section id="contact" class="section contact-section">
+      <div>
+        <p class="eyebrow">Contact</p>
         <h2>お問い合わせ</h2>
-        <p>内容を確認のうえ、通常1〜3営業日以内を目安にご返信いたします。</p>
+        <p>大口注文、継続取引、法人向け相談、事業提携等については、下記メールアドレスまでご連絡ください。</p>
       </div>
-
-      <div class="grid">
-        <div class="card">
-          <h3>メールでのお問い合わせ</h3>
-          <p class="muted">下記アドレス宛にご連絡ください。</p>
-          <p style="margin:10px 0 0;">
-            <a class="btn primary" href="mailto:devilchaos1984@yahoo.co.jp"><span class="dot"></span>devilchaos1984@yahoo.co.jp</a>
-          </p>
-          <div class="note">
-            ※迷惑メール対策のため、件名に「お問い合わせ」を含めていただくとスムーズです。
-          </div>
-        </div>
-      </div>
+      <a class="mail-card" href="mailto:devilchaos1984@yahoo.co.jp">
+        <span>お問い合わせメール</span>
+        <strong>devilchaos1984@yahoo.co.jp</strong>
+      </a>
     </section>
   </main>
 
-  <footer>
-    <div class="wrap footGrid">
-      <div>
-        <div style="font-weight:800; color: rgba(255,255,255,.86);">レッサーパンダ株式会社</div>
-        <div class="small" style="margin-top:4px;">大阪市天王寺区上汐3丁目1-19　上六ウエストビル2F</div>
-        <div class="small">代表取締役　賈 思超</div>
-        <div style="margin-top:10px;">© <span id="y"></span> Lesser Panda Co., Ltd. All Rights Reserved.</div>
-      </div>
-      <div>
-        <div class="footLinks">
-          <a href="#top">トップ</a>
-          <a href="#services">事業内容</a>
-          <a href="#about">会社概要</a>
-                    <a href="privacy.html">プライバシーポリシー</a>
-          <a href="tokusho.html">特商法表記</a>
-        </div>
-        <div class="small" style="margin-top:10px;">
-          本サイトは会社情報提供を目的として運営しています。掲載内容は将来の成果を保証するものではありません。
-        </div>
-      </div>
+  <footer class="site-footer">
+    <div>
+      <strong>レッサーパンダ株式会社</strong>
+      <p>EC事業を中心に、AI時代の小規模企業経営を着実に前へ。</p>
     </div>
+    <nav>
+      <a href="privacy.html">プライバシーポリシー</a>
+      <a href="tokusho.html">特定商取引法に基づく表記</a>
+    </nav>
   </footer>
-
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
-
-  <script>
-    (function(){
-      const btn = document.getElementById('navToggle');
-      const menu = document.querySelector('.navlinks');
-      const overlay = document.getElementById('navOverlay');
-      if(!btn || !menu || !overlay) return;
-
-      function closeMenu(){
-        menu.classList.remove('open');
-        overlay.classList.remove('open');
-        document.body.classList.remove('nav-open');
-        // iOS: restore scroll
-        const y = document.body.getAttribute('data-scroll-y');
-        if(y){
-          window.scrollTo(0, parseInt(y,10));
-          document.body.removeAttribute('data-scroll-y');
-        }
-        btn.setAttribute('aria-expanded','false');
-        overlay.setAttribute('aria-hidden','true');
-      }
-      function openMenu(){
-        // iOS: save scroll and lock
-        document.body.setAttribute('data-scroll-y', String(window.scrollY || 0));
-        document.body.classList.add('nav-open');
-        menu.classList.add('open');
-        overlay.classList.add('open');
-        btn.setAttribute('aria-expanded','true');
-        overlay.setAttribute('aria-hidden','false');
-      }
-      btn.addEventListener('click', ()=>{
-        const isOpen = menu.classList.contains('open');
-        isOpen ? closeMenu() : openMenu();
-      });
-      overlay.addEventListener('click', closeMenu);
-      overlay.addEventListener('touchmove', (e)=>e.preventDefault(), {passive:false});
-
-      menu.querySelectorAll('a[href^="#"]').forEach(a=>{
-        a.addEventListener('click', (e)=>{
-          const href = a.getAttribute('href');
-          const target = document.querySelector(href);
-          if(target){
-            e.preventDefault();
-            closeMenu();
-            setTimeout(()=>target.scrollIntoView({behavior:'smooth', block:'start'}), 50);
-          } else {
-            closeMenu();
-          }
-        });
-      });
-
-      document.addEventListener('keydown', (e)=>{
-        if(e.key === 'Escape') closeMenu();
-      });
-    })();
-  </script>
-
+  <script src="assets/site.js"></script>
 </body>
 </html>
+
+
